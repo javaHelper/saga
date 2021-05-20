@@ -30,18 +30,44 @@ INSERT INTO `test`.`product` (`id`, `description`, `price`, `qty_available`) VAL
 MongoDB
 
 ```json
+db.getCollection('purchase_order').find({})
 {
-    "_id" : ObjectId("60a542e52306ab5bdd7a6b07"),
+    "_id" : ObjectId("60a536412306ab5bdd7a6b06"),
     "user" : {
-        "id" : "1",
-        "firstname" : "vins",
-        "lastname" : "guru",
-        "email" : "admin@vinsguru.com"
+        "id" : NumberLong(1),
+        "firstname" : "Parate",
+        "lastname" : "Parate",
+        "email" : "neha.parate-updated@vinsguru.com"
     },
     "product" : {
-        "_id" : "1",
+        "id" : NumberLong(1),
         "description" : "ipad"
     },
-    "price" : 300
+    "price" : 300.0,
+    "_class" : "com.example.demo.model.PurchaseOrder"
 }
 ```
+
+
+http://localhost:8081/order-service/all
+
+```json
+[
+    {
+        "id": "60a536412306ab5bdd7a6b06",
+        "user": {
+            "id": 1,
+            "firstname": "Parate",
+            "lastname": "Parate",
+            "email": "neha.parate-updated@vinsguru.com"
+        },
+        "product": {
+            "productId": 1,
+            "description": "ipad"
+        },
+        "price": 300
+    }
+]
+```
+
+
