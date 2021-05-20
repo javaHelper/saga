@@ -59,7 +59,7 @@ http://localhost:8081/order-service/all
             "id": 1,
             "firstname": "Parate",
             "lastname": "Parate",
-            "email": "neha.parate-updated@vinsguru.com"
+            "email": "neha.parate@vinsguru.com"
         },
         "product": {
             "productId": 1,
@@ -69,5 +69,23 @@ http://localhost:8081/order-service/all
     }
 ]
 ```
+
+wne we make the PUT request
+
+```
+curl -X PUT \
+  http://localhost:8080/user-service/update \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: b5ed5c72-2478-2cbb-82b3-13c563334177' \
+  -d '{
+    "id": 1,
+    "firstname":"Neha",
+    "lastname": "Parate",
+    "email": "neha.parate-updated@vinsguru.com"
+}'
+```
+
+![image](https://user-images.githubusercontent.com/54174687/118947335-d96bd600-b974-11eb-8b68-23917e899a69.png)
 
 
