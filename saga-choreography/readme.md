@@ -7,14 +7,18 @@ This is very easy to implement in a monolith application. The entire workflow ca
 
 We have an order-service with its own database which is responsible for order management. Similarly we also have payment-service which is responsible for managing payments. So the order-service receives the request and checks with the payment-service if the user has the balance. If the payment-service responds OK, order-service completes the order and payment-service deducts the payment. Otherwise, the order-service cancels the order. For a very simple business requirement, here we have to send multiple requests across the network.
 
+![image](https://user-images.githubusercontent.com/54174687/118979615-43e13e00-b996-11eb-9549-a7d9009572fd.png)
+
 
 What if we also need to check with inventory-service for the availability of inventory before making the order as complete! Now you see the problem?
 
 In the traditional system design approach, order-service simply sends a HTTP request to get the information about the user’s credit balance. The problem with this approach is order-service assumes that payment-service will be up and running always. Any network issue or performance issue at the payment-service will be propagated to the order-service. It could lead to poor user-experience & we also might lose revenue. Let’s see how we could handle transactions in the distributed systems with loose coupling by using a pattern called Saga Pattern with Event Sourcing approach.
 
-saga pattern
+# saga pattern
 Choreography Saga Pattern With Spring Boot – Microservice Design Patterns
-14 Comments / Architectural Design Pattern, Architecture, Articles, Data Stream / Event Stream, Design Pattern, Framework, Java, Kafka, Kubernetes Design Pattern, MicroService, Reactive Programming, Reactor, Spring, Spring Boot, Spring WebFlux / By vIns / March 19, 2021
+
+![image](https://user-images.githubusercontent.com/54174687/118979574-3926a900-b996-11eb-9dd2-37e3fc0ee550.png)
+
 
  
 Overview:
