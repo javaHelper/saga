@@ -37,7 +37,7 @@ db.getCollection('purchase_order').find({})
         "id" : NumberLong(1),
         "firstname" : "Parate",
         "lastname" : "Parate",
-        "email" : "neha.parate-updated@vinsguru.com"
+        "email" : "neha.parate@vinsguru.com"
     },
     "product" : {
         "id" : NumberLong(1),
