@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
 				user.setFirstname(userDto.getLastname());
 				user.setEmail(userDto.getEmail());
 				user.setId(userDto.getId());
+				usersRepository.save(user);	
 				
 				// Publish Message/Event to kafka
 				this.publishEvent(user);
