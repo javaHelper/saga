@@ -31,7 +31,45 @@ INSERT INTO `test`.`product` (`id`, `description`, `price`, `qty_available`) VAL
 
 ```
 
-MongoDB
+# MySQL
+
+```
+mysql> use test;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_test |
++----------------+
+| product        |
+| users          |
++----------------+
+2 rows in set (2.56 sec)
+
+mysql> select * from users;
++----+-----------+------------+------------------------------+
+| id | firstname | lastname   | email                        |
++----+-----------+------------+------------------------------+
+|  1 | Neha      | Parate     | neha.parate@gmail.com        |
+|  2 | Aravind   | Dekate     | aravind.dekate@gmail.com     |
+|  3 | Mayur     | Devghare   | mayur.devghare@gmail.com     |
+|  4 | Suchita   | Vinchurkar | suchita.vinchurkar@gmail.com |
++----+-----------+------------+------------------------------+
+4 rows in set (1.06 sec)
+
+mysql> select * from products;
+ERROR 1146 (42S02): Table 'test.products' doesn't exist
+mysql> select * from product;
++----+-------------+-------+---------------+
+| id | description | price | qty_available |
++----+-------------+-------+---------------+
+|  1 | IPad        |   300 |            10 |
+|  2 | IPhone      |   650 |            50 |
+|  3 | Sony TV     |   320 |           100 |
++----+-------------+-------+---------------+
+3 rows in set (1.12 sec)
+```
+
+# MongoDB
 
 ```json
 db.getCollection('purchase_order').find({})
@@ -41,7 +79,7 @@ db.getCollection('purchase_order').find({})
         "id" : NumberLong(1),
         "firstname" : "Parate",
         "lastname" : "Parate",
-        "email" : "neha.parate@vinsguru.com"
+        "email" : "neha.parate@gmail.com"
     },
     "product" : {
         "id" : NumberLong(1),
@@ -51,6 +89,33 @@ db.getCollection('purchase_order').find({})
     "_class" : "com.example.demo.model.PurchaseOrder"
 }
 ```
+
+Now when user details have been updated, user-service will raise an event and iterested order-service will listen to that event update the information.
+
+For ex: For Neha as user, looking to update her email address from `gmail.com` to `hotmail.com`.
+
+# POST Request
+
+```curl
+curl --location --request PUT 'http://localhost:8080/user-service/update' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "id" : 1,
+    "firstname" : "Neha",
+    "lastname" : "Parate",
+    "email" : "neha.parate@hotmail.com"
+}'
+```
+
+Now MySQL DB has been updated and kafka event have been raise and listen by order-service to update the `purchase_order` collection. Now check `purchase_order`should have updated details
+
+![image](https://user-images.githubusercontent.com/54174687/120895619-71d3ad00-c63b-11eb-9bd5-bab90a6ac13e.png)
+
+# Control Center Confluent Kafka
+
+![image](https://user-images.githubusercontent.com/54174687/120895726-f292a900-c63b-11eb-93ca-d9638577273e.png)
+
+
 
 
 http://localhost:8081/order-service/all
