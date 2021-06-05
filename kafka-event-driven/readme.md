@@ -1,5 +1,9 @@
 # Event Carried State Transfer – Microservice Design Pattern
 
+
+We can maintain data consistency across all the microservices using Apache/Confluent Kafka. This approach avoids many unnecessary network calls among microservices, improves the performance of microservices and make the microservices loosely coupled. 
+For ex: `Order-service` does not have to be up and running when user details are updated via `user-service`. `User-service` would be raising an event. `Order-service` can subscribe to that whenever it is up and running. So that information is not going to be lost! In the old approach, it makes microservices tightly coupled in such a way that all the dependent microservices have to be up and running together. Otherwise it would make the system unavailable.
+
 ```sql
 CREATE TABLE `test`.`users` (
   `id` INT NOT NULL,
