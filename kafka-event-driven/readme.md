@@ -111,6 +111,21 @@ Now MySQL DB has been updated and kafka event have been raise and listen by orde
 
 ![image](https://user-images.githubusercontent.com/54174687/120895619-71d3ad00-c63b-11eb-9bd5-bab90a6ac13e.png)
 
+# MySQL
+
+```
+mysql> select * from users;
++----+-----------+------------+------------------------------+
+| id | firstname | lastname   | email                        |
++----+-----------+------------+------------------------------+
+|  1 | Parate    | Parate     | neha.parate@hotmail.com      |
+|  2 | Aravind   | Dekate     | aravind.dekate@gmail.com     |
+|  3 | Mayur     | Devghare   | mayur.devghare@gmail.com     |
+|  4 | Suchita   | Vinchurkar | suchita.vinchurkar@gmail.com |
++----+-----------+------------+------------------------------+
+4 rows in set (0.00 sec)
+```
+
 # Control Center Confluent Kafka
 
 ![image](https://user-images.githubusercontent.com/54174687/120895726-f292a900-c63b-11eb-93ca-d9638577273e.png)
@@ -128,13 +143,13 @@ http://localhost:8081/order-service/all
             "id": 1,
             "firstname": "Parate",
             "lastname": "Parate",
-            "email": "neha.parate@vinsguru.com"
+            "email": "neha.parate@hotmail.com"
         },
         "product": {
             "productId": 1,
             "description": "ipad"
         },
-        "price": 300
+        "price": 300.0
     }
 ]
 ```
