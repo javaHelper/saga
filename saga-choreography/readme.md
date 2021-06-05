@@ -66,7 +66,8 @@ There is no service dependency. payment-service/inventory-service do not have to
 
 The business workflow is implemented as shown here.
 
-![image](https://user-images.githubusercontent.com/54174687/118979170-d3d2b800-b995-11eb-8e5c-224df8ee7e00.png)
+![image](https://user-images.githubusercontent.com/54174687/120899161-e9113d00-c64b-11eb-834e-22afd00560e0.png)
+
 
 
 - order-services receives a POST request for a new order
