@@ -384,6 +384,11 @@ http://localhost:8080/order/all
 
 
 
+![image](https://user-images.githubusercontent.com/54174687/120922586-aac95b80-c6e7-11eb-8b85-c7af7bd49584.png)
+
+![image](https://user-images.githubusercontent.com/54174687/120922615-cdf40b00-c6e7-11eb-9c51-ad353a972693.png)
+
+![image](https://user-images.githubusercontent.com/54174687/120922635-e82de900-c6e7-11eb-9921-01e5fe2d88e3.png)
 
 
 
