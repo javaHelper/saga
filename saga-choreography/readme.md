@@ -142,6 +142,8 @@ The business workflow is implemented as shown here.
 
 # Request
 
+Make the multiple POST requests - 
+
 ```
 curl -X POST \
   http://localhost:8080/order/create \
@@ -158,10 +160,10 @@ Response
 
 ```
 {
-    "id": "e9e4b83f-9a9f-4005-b391-dc90c01a4eea",
+    "id": "1184f86b-40a7-4f0a-b216-a451af427cc6",
     "userId": 1,
-    "productId": 3,
-    "price": 300,
+    "productId": 1,
+    "price": 100,
     "orderStatus": "ORDER_CREATED",
     "paymentStatus": null,
     "inventoryStatus": null,
@@ -169,12 +171,219 @@ Response
 }
 ```
 
-![image](https://user-images.githubusercontent.com/54174687/118979390-0a103780-b996-11eb-8f3b-1d3118163db4.png)
+```curl
+curl --location --request POST 'http://localhost:8080/order/create' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "userId" : 1,
+	"productId" : 2
+}'
+```
+
+Response
+
+```
+{
+    "id": "00f51f31-07d3-4637-a259-8bd18dca8f93",
+    "userId": 1,
+    "productId": 2,
+    "price": 200,
+    "orderStatus": "ORDER_CREATED",
+    "paymentStatus": null,
+    "inventoryStatus": null,
+    "version": 0
+}
+```
 
 
-![image](https://user-images.githubusercontent.com/54174687/118979704-61160c80-b996-11eb-8987-a1c3e231c13f.png)
+```
+curl --location --request POST 'http://localhost:8080/order/create' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "userId" : 2,
+	"productId" : 1
+}'
+```
 
-![image](https://user-images.githubusercontent.com/54174687/118979792-7a1ebd80-b996-11eb-80ea-b83ed496177b.png)
+Response
+```
+{
+    "id": "7f716f36-78f6-42f8-bed6-c994e957a7f4",
+    "userId": 2,
+    "productId": 1,
+    "price": 100,
+    "orderStatus": "ORDER_CREATED",
+    "paymentStatus": null,
+    "inventoryStatus": null,
+    "version": 0
+}
+```
+
+```curl
+curl --location --request POST 'http://localhost:8080/order/create' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "userId" : 2,
+	"productId" : 2
+}'
+```
+
+Response
+
+```
+{
+    "id": "12636116-c6f4-4b12-8314-ddca7c016e44",
+    "userId": 2,
+    "productId": 2,
+    "price": 200,
+    "orderStatus": "ORDER_CREATED",
+    "paymentStatus": null,
+    "inventoryStatus": null,
+    "version": 0
+}
+```
+
+# Database details
+
+```
+mysql> SELECT * FROM `order-service`.order_line_items;
++----+---------+----------+---------------+
+| id | price   | quantity | sku_code      |
++----+---------+----------+---------------+
+|  1 | 1230.00 |        1 | IPHONE_12_RED |
+|  2 | 1230.00 |        1 | IPHONE_12_RED |
++----+---------+----------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM `order-service`.purchase_order;
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------+--------------+----------------+-------+------------+---------+---------+
+| id                                                                                                                                                                                                                                                              | inventory_status | order_status | payment_status | price | product_id | user_id | version |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------+--------------+----------------+-------+------------+---------+---------+
+| ä°k@ºO
+▓ñQ»B|ã                                                                                                                                                                                                                                                |             NULL |            0 |           NULL |   100 |          1 |       1 |       0 |
+|  §1ËF7óYïÐì╩Åô                                                                                                                                                                                                                                                |             NULL |            0 |           NULL |   200 |          2 |       1 |       0 |
+| qo6x÷B°¥Í╔öÚWº¶                                                                                                                                                                                                                                                |             NULL |            0 |           NULL |   100 |          1 |       2 |       0 |
+| caã¶Kâ¦╩|nD                                                                                                                                                                                                                                                |             NULL |            0 |           NULL |   200 |          2 |       2 |       0 |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------+--------------+----------------+-------+------------+---------+---------+
+4 rows in set (0.30 sec)
+
+mysql> SELECT * FROM `order-service`.t_orders;
++----+--------------------------------------+
+| id | order_number                         |
++----+--------------------------------------+
+|  1 | 5715617b-6cc1-4c79-801d-93ccfedc0805 |
+|  2 | 2153145a-8e1c-4106-a97a-da0476443ee4 |
++----+--------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM `order-service`.t_orders_order_line_items;
++----------+---------------------+
+| order_id | order_line_items_id |
++----------+---------------------+
+|        1 |                   1 |
+|        2 |                   2 |
++----------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+mysql> SELECT * FROM `inventory-service`.order_inventory;
++------------+---------------------+
+| product_id | available_inventory |
++------------+---------------------+
+|          1 |                   3 |
+|          2 |                   3 |
+|          3 |                   5 |
++------------+---------------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT * FROM `inventory-service`.order_inventory_consumption;
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+-------------------+
+| order_id                                                                                                                                                                                                                                                        | product_id | quantity_consumed |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+-------------------+
+| ä°k@ºO
+▓ñQ»B|ã                                                                                                                                                                                                                                                |          1 |                 1 |
+|  §1ËF7óYïÐì╩Åô                                                                                                                                                                                                                                                |          2 |                 1 |
+| qo6x÷B°¥Í╔öÚWº¶                                                                                                                                                                                                                                                |          1 |                 1 |
+| caã¶Kâ¦╩|nD                                                                                                                                                                                                                                                |          2 |                 1 |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+-------------------+
+4 rows in set (0.58 sec)
+
+mysql> SELECT * FROM `inventory-service`.user_balance;
++---------+---------+
+| user_id | balance |
++---------+---------+
+|       1 |     700 |
+|       2 |     700 |
+|       3 |    1000 |
++---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM `inventory-service`.user_transaction;
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+---------+
+| order_id                                                                                                                                                                                                                                                        | amount | user_id |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+---------+
+| ä°k@ºO
+▓ñQ»B|ã                                                                                                                                                                                                                                                |    100 |       1 |
+|  §1ËF7óYïÐì╩Åô                                                                                                                                                                                                                                                |    200 |       1 |
+| qo6x÷B°¥Í╔öÚWº¶                                                                                                                                                                                                                                                |    100 |       2 |
+| caã¶Kâ¦╩|nD                                                                                                                                                                                                                                                |    200 |       2 |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+---------+
+4 rows in set (0.00 sec)
+
+mysql>
+```
+
+
+http://localhost:8080/order/all
+
+```
+[
+    {
+        "id": "1184f86b-40a7-4f0a-b216-a451af427cc6",
+        "userId": 1,
+        "productId": 1,
+        "price": 100,
+        "orderStatus": "ORDER_CREATED",
+        "paymentStatus": null,
+        "inventoryStatus": null,
+        "version": 0
+    },
+    {
+        "id": "00f51f31-07d3-4637-a259-8bd18dca8f93",
+        "userId": 1,
+        "productId": 2,
+        "price": 200,
+        "orderStatus": "ORDER_CREATED",
+        "paymentStatus": null,
+        "inventoryStatus": null,
+        "version": 0
+    },
+    {
+        "id": "7f716f36-78f6-42f8-bed6-c994e957a7f4",
+        "userId": 2,
+        "productId": 1,
+        "price": 100,
+        "orderStatus": "ORDER_CREATED",
+        "paymentStatus": null,
+        "inventoryStatus": null,
+        "version": 0
+    },
+    {
+        "id": "12636116-c6f4-4b12-8314-ddca7c016e44",
+        "userId": 2,
+        "productId": 2,
+        "price": 200,
+        "orderStatus": "ORDER_CREATED",
+        "paymentStatus": null,
+        "inventoryStatus": null,
+        "version": 0
+    }
+]
+```
+
+
+
 
 
 
