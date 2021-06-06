@@ -8,3 +8,23 @@ spring.cloud.stream:
       destination: order-event
     paymentProcessor-out-0:
       destination: payment-event
+      
+   
+server:
+  port: 9002
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/inventory-service
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        format_sql: true

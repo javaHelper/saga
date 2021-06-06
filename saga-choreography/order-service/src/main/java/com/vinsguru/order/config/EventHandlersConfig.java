@@ -11,25 +11,27 @@ import java.util.function.Consumer;
 @Configuration
 public class EventHandlersConfig {
 
-    @Autowired
-    private OrderStatusUpdateEventHandler orderEventHandler;
+	@Autowired
+	private OrderStatusUpdateEventHandler orderEventHandler;
 
-    @Bean
-    public Consumer<PaymentEvent> paymentEventConsumer(){
-        return pe -> {
-            orderEventHandler.updateOrder(pe.getPayment().getOrderId(), po -> {
-                po.setPaymentStatus(pe.getPaymentStatus());
-            });
-        };
-    }
+	// Spring Cloud Function Definition name matches with bean name
+	@Bean
+	public Consumer<PaymentEvent> paymentEventConsumer(){
+		return pe -> {
+			orderEventHandler.updateOrder(pe.getPayment().getOrderId(), po -> {
+				po.setPaymentStatus(pe.getPaymentStatus());
+			});
+		};
+	}
 
-    @Bean
-    public Consumer<InventoryEvent> inventoryEventConsumer(){
-        return ie -> {
-            orderEventHandler.updateOrder(ie.getInventory().getOrderId(), po -> {
-                po.setInventoryStatus(ie.getStatus());
-            });
-        };
-    }
+	// Spring Cloud Function Definition name matches with bean name
+	@Bean
+	public Consumer<InventoryEvent> inventoryEventConsumer(){
+		return ie -> {
+			orderEventHandler.updateOrder(ie.getInventory().getOrderId(), po -> {
+				po.setInventoryStatus(ie.getStatus());
+			});
+		};
+	}
 
 }
