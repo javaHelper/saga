@@ -14,6 +14,69 @@ What if we also need to check with inventory-service for the availability of inv
 
 In the traditional system design approach, order-service simply sends a HTTP request to get the information about the user’s credit balance. The problem with this approach is order-service assumes that payment-service will be up and running always. Any network issue or performance issue at the payment-service will be propagated to the order-service. It could lead to poor user-experience & we also might lose revenue. Let’s see how we could handle transactions in the distributed systems with loose coupling by using a pattern called Saga Pattern with Event Sourcing approach.
 
+```curl
+drop table if exists user_balance;
+
+drop table if exists user_transaction;
+
+create table user_balance (
+   user_id integer not null,
+	balance integer not null,
+	primary key (user_id)
+) engine=MyISAM;
+
+create table user_transaction (
+   order_id binary(255) not null,
+	amount integer not null,
+	user_id integer not null,
+	primary key (order_id)
+) engine=MyISAM;
+
+
+
+drop table if exists order_inventory;
+drop table if exists order_inventory_consumption;
+
+create table order_inventory (
+       product_id integer not null,
+        available_inventory integer not null,
+        primary key (product_id)
+    ) engine=MyISAM;
+	
+create table order_inventory_consumption (
+       order_id binary(255) not null,
+        product_id integer not null,
+        quantity_consumed integer not null,
+        primary key (order_id)
+    ) engine=MyISAM;
+	
+	
+drop table if exists purchase_order;
+create table purchase_order (
+       id binary(255) not null,
+        inventory_status integer,
+        order_status integer,
+        payment_status integer,
+        price integer,
+        product_id integer,
+        user_id integer,
+        version integer not null,
+        primary key (id)
+    ) engine=MyISAM;
+	
+	
+INSERT INTO `inventory-service`.`order_inventory` (`product_id`, `available_inventory`) VALUES ('1', '5');
+INSERT INTO `inventory-service`.`order_inventory` (`product_id`, `available_inventory`) VALUES ('2', '5');
+INSERT INTO `inventory-service`.`order_inventory` (`product_id`, `available_inventory`) VALUES ('3', '5');
+
+
+INSERT INTO `inventory-service`.`user_balance` (`user_id`, `balance`) VALUES ('1', '1000');
+INSERT INTO `inventory-service`.`user_balance` (`user_id`, `balance`) VALUES ('2', '1000');
+INSERT INTO `inventory-service`.`user_balance` (`user_id`, `balance`) VALUES ('3', '1000');
+```
+
+
+
 # saga pattern
 Choreography Saga Pattern With Spring Boot – Microservice Design Patterns
 
