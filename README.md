@@ -6,9 +6,9 @@ https://itnext.io/microservices-architecture-an-implementation-of-saga-pattern-d
 
 # Swagger URLs
 
-Order Service - http://localhost:8090/swagger-ui.html
-Delivery Service - http://localhost:8070/swagger-ui.htm
-Kitchen Service - http://localhost:8080/swagger-ui.html
+- Order Service - http://localhost:8090/swagger-ui.html
+- Delivery Service - http://localhost:8070/swagger-ui.htm
+- Kitchen Service - http://localhost:8080/swagger-ui.html
 
 # Techlogies Used 
 
