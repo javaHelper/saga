@@ -1,0 +1,34 @@
+server:
+  compression:
+    enabled: true
+  port: 8070
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  application:
+    name: delivery-service
+  data:
+    mongodb:
+      host: localhost
+      database: deliveryservice
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: delivery-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+#info:
+#  version: @pom.version@
+#  name: @pom.artifactId@
+#  timestamp: @build.time@

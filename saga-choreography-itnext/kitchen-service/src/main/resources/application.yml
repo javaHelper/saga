@@ -1,0 +1,35 @@
+server:
+  compression:
+    enabled: true
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  application:
+    name: kitchen-service
+  data:
+    mongodb:
+      host: localhost
+      database: kitchenservice
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: kitchen-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+#info:
+#  version: @pom.version@
+#  name: @pom.artifactId@
+#  timestamp: @build.time@
+
