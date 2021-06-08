@@ -1,0 +1,31 @@
+server:
+  port: 9191
+
+spring:
+  cloud:
+    stream:
+      function:
+        definition: orderPurchaseEventProcessor;paymentEventSubscriber
+      bindings:
+        orderPurchaseEventProcessor-in-0:
+          destination: orders
+        orderPurchaseEventProcessor-out-0:
+          destination: payments
+        paymentEventSubscriber-in-0:
+          destination: payments
+        paymentEventSubscriber-out-0:
+          destination: transactions
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    maximum-pool-size: 100
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
