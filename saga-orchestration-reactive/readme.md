@@ -87,3 +87,9 @@ GET http://localhost:8080/order/all
     }
 ]
 ```
+
+![image](https://user-images.githubusercontent.com/54174687/121395871-76b49b80-c970-11eb-92eb-487807b182a7.png)
+
+
+![image](https://user-images.githubusercontent.com/54174687/121395988-8e8c1f80-c970-11eb-9882-2c79a9237e62.png)
+
