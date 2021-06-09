@@ -50,6 +50,9 @@ We consider all the local transactions as 1 single workflow. A workflow will con
 
 - Make the 3 consecutive requests and 4th one will be failed. 
 
+![image](https://user-images.githubusercontent.com/54174687/121395273-dcecee80-c96f-11eb-96cc-fc7023129be4.png)
+
+
 GET http://localhost:8080/order/all
 
 ```
@@ -84,5 +87,3 @@ GET http://localhost:8080/order/all
     }
 ]
 ```
-
-![image](https://user-images.githubusercontent.com/54174687/121395273-dcecee80-c96f-11eb-96cc-fc7023129be4.png)
