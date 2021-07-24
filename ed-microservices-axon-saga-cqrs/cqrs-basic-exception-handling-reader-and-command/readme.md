@@ -1,5 +1,28 @@
 # Event-Driven Microservices, CQRS, SAGA, Axon, Spring Boot ==> PART-1
 
+This application uses 
+
+- Spring Boot 
+- Spring Data JPA
+- MYSQL
+- Spring Validation
+- AxonIq server
+- Spring Cloud Eureka
+
+# Sequence to start the services
+
+- Eureka
+- product-service
+- api-gateway
+
+
+Performs
+
+- Validation. Message Dispatch Interceptor.
+- Validation. How to check if record exists?
+- Handle Error & Rollback Transaction
+
+
 # Create Few Products
 
 ```curl
