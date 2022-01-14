@@ -1,0 +1,27 @@
+server:
+  port: 8080
+spring.cloud.stream:
+  function:
+    definition: orderEventPublisher;orderEventProcessor;paymentEventConsumer
+  bindings:
+    orderEventPublisher-out-0:
+      destination: order-events
+    orderEventProcessor-in-0:
+      destination: order-events
+    orderEventProcessor-out-0:
+      destination: payment-events
+    paymentEventConsumer-in-0:
+      destination: payment-events
+
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Password
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
